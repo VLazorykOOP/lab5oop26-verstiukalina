@@ -85,3 +85,38 @@ public:
     }
 };
 
+
+void testPoint() {
+    cout << "\nТест точки \n";
+    Point p1;
+    p1.drukuvaty();
+    cout << "Площа = " << p1.ploshcha() << endl;
+
+    Point p2(2, 5);
+    p2.drukuvaty();
+    cout << "Площа = " << p2.ploshcha() << endl;
+}
+
+void testEllipse() {
+    cout << "\nТест еліпса \n";
+    MyEllipse e1;
+    e1.drukuvaty();
+
+    MyEllipse e2(1, 2, 4, 3);
+    e2.drukuvaty();
+}
+
+void testCircle() {
+    cout << "\nТест кола \n";
+    Circle c1;
+    c1.drukuvaty();
+
+    Circle c2(3, 4, 5);
+    c2.drukuvaty();
+}
+
+void testAll() {
+    testPoint();
+    testEllipse();
+    testCircle();
+}
