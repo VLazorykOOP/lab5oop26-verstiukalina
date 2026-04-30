@@ -120,3 +120,117 @@ void testAll() {
     testEllipse();
     testCircle();
 }
+
+class TreeNode {
+public:
+    int value;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int v) {
+        value = v;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class BinaryTree {
+private:
+    TreeNode* root;
+
+    void dodaty(TreeNode*& node, int value) {
+        if (node == NULL) {
+            node = new TreeNode(value);
+        }
+        else if (value < node->value) {
+            dodaty(node->left, value);
+        }
+        else if (value > node->value) {
+            dodaty(node->right, value);
+        }
+        else {
+            cout << "Повторне значення\n";
+        }
+    }
+
+    void poslidovnyiObhid(TreeNode* node) {
+        if (node != NULL) {
+            poslidovnyiObhid(node->left);
+            cout << node->value << " ";
+            poslidovnyiObhid(node->right);
+        }
+    }
+
+    void zvorotnyiObhid(TreeNode* node) {
+        if (node != NULL) {
+            zvorotnyiObhid(node->right);
+            cout << node->value << " ";
+            zvorotnyiObhid(node->left);
+        }
+    }
+
+    void ochystyty(TreeNode* node) {
+        if (node != NULL) {
+            ochystyty(node->left);
+            ochystyty(node->right);
+            delete node;
+        }
+    }
+
+public:
+    BinaryTree() {
+        root = NULL;
+    }
+
+    ~BinaryTree() {
+        ochystyty(root);
+    }
+
+    void dodaty(int value) {
+        dodaty(root, value);
+    }
+
+    void drukuvatyPoslidovno() {
+        poslidovnyiObhid(root);
+        cout << endl;
+    }
+
+    void drukuvatyZvorotno() {
+        zvorotnyiObhid(root);
+        cout << endl;
+    }
+};
+
+void robotaZDerevom() {
+    BinaryTree tree;
+    int choice;
+    int value;
+
+    do {
+        cout << "\n Бінарне дерево \n";
+        cout << "1. Додати значення\n";
+        cout << "2. Послідовний обхід\n";
+        cout << "3. Зворотний обхід\n";
+        cout << "0. Повернутися в головне меню\n";
+        cout << "Ваш вибір: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Введіть значення: ";
+            cin >> value;
+            tree.dodaty(value);
+            break;
+        case 2:
+            tree.drukuvatyPoslidovno();
+            break;
+        case 3:
+            tree.drukuvatyZvorotno();
+            break;
+        case 0:
+            break;
+        default:
+            cout << "Неправильний вибір\n";
+        }
+    } while (choice != 0);
+}
