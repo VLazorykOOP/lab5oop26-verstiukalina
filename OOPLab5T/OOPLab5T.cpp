@@ -85,7 +85,6 @@ public:
     }
 };
 
-
 void testPoint() {
     cout << "\nТест точки \n";
     Point p1;
@@ -235,7 +234,6 @@ void robotaZDerevom() {
     } while (choice != 0);
 }
 
-
 class MyString {
 protected:
     char* str;
@@ -364,4 +362,40 @@ void testRiadkiv() {
     cout << "Введіть рядок із цифр: ";
     cin >> d1;
     cout << "Рядок із цифр: " << d1 << endl;
+}
+
+int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
+    int choice;
+
+    do {
+        cout << "\nМЕНЮ\n";
+        cout << "1. Тести до задачі 1\n";
+        cout << "2. Робота з бінарним деревом\n";
+        cout << "3. Тести до задачі 3\n";
+        cout << "0. Вихід\n";
+        cout << "Ваш вибір: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            testAll();
+            break;
+        case 2:
+            robotaZDerevom();
+            break;
+        case 3:
+            testRiadkiv();
+            break;
+        case 0:
+            cout << "Вихід\n";
+            break;
+        default:
+            cout << "Неправильний вибір\n";
+        }
+    } while (choice != 0);
+
+    return 0;
 }
