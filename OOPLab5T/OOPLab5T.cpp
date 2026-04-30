@@ -234,3 +234,134 @@ void robotaZDerevom() {
         }
     } while (choice != 0);
 }
+
+
+class MyString {
+protected:
+    char* str;
+
+public:
+    MyString() {
+        str = new char[1];
+        str[0] = '\0';
+    }
+
+    MyString(const char* s) {
+        str = new char[strlen(s) + 1];
+        strcpy(str, s);
+    }
+
+    MyString(const MyString& other) {
+        str = new char[strlen(other.str) + 1];
+        strcpy(str, other.str);
+    }
+
+    ~MyString() {
+        delete[] str;
+    }
+
+    MyString& operator=(const MyString& other) {
+        if (this != &other) {
+            delete[] str;
+            str = new char[strlen(other.str) + 1];
+            strcpy(str, other.str);
+        }
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& out, const MyString& s) {
+        out << s.str;
+        return out;
+    }
+
+    friend istream& operator>>(istream& in, MyString& s) {
+        char temp[100];
+        in >> temp;
+        delete[] s.str;
+        s.str = new char[strlen(temp) + 1];
+        strcpy(s.str, temp);
+        return in;
+    }
+};
+
+class DigitString : public MyString {
+private:
+    bool tilkyTsyfry(const char* s) {
+        for (int i = 0; s[i] != '\0'; i++) {
+            if (!isdigit(s[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void vstanovytyZnachenia(const char* s) {
+        delete[] str;
+        if (tilkyTsyfry(s)) {
+            str = new char[strlen(s) + 1];
+            strcpy(str, s);
+        }
+        else {
+            str = new char[1];
+            str[0] = '\0';
+        }
+    }
+
+public:
+    DigitString() : MyString() {}
+
+    DigitString(const char* s) : MyString() {
+        vstanovytyZnachenia(s);
+    }
+
+    DigitString(const DigitString& other) : MyString(other) {}
+
+    ~DigitString() {}
+
+    DigitString& operator=(const DigitString& other) {
+        MyString::operator=(other);
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& out, const DigitString& s) {
+        out << s.str;
+        return out;
+    }
+
+    friend istream& operator>>(istream& in, DigitString& s) {
+        char temp[100];
+        in >> temp;
+        s.vstanovytyZnachenia(temp);
+        return in;
+    }
+};
+
+void testRiadkiv() {
+    cout << "\n Тест рядків \n";
+
+    MyString s1("privit");
+    MyString s2 = s1;
+    MyString s3;
+    s3 = s1;
+
+    cout << "s1 = " << s1 << endl;
+    cout << "копія s2 = " << s2 << endl;
+    cout << "присвоєний s3 = " << s3 << endl;
+
+    DigitString d1("12345");
+    DigitString d2 = d1;
+    DigitString d3;
+    d3 = d1;
+
+    cout << "d1 = " << d1 << endl;
+    cout << "копія d2 = " << d2 << endl;
+    cout << "присвоєний d3 = " << d3 << endl;
+
+    cout << "Введіть рядок: ";
+    cin >> s1;
+    cout << "Ви ввели: " << s1 << endl;
+
+    cout << "Введіть рядок із цифр: ";
+    cin >> d1;
+    cout << "Рядок із цифр: " << d1 << endl;
+}
