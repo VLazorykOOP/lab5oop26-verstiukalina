@@ -246,12 +246,12 @@ public:
 
     MyString(const char* s) {
         str = new char[strlen(s) + 1];
-        strcpy(str, s);
+        strcpy_s(str, s);
     }
 
     MyString(const MyString& other) {
         str = new char[strlen(other.str) + 1];
-        strcpy(str, other.str);
+        strcpy_s(str, other.str);
     }
 
     ~MyString() {
@@ -262,7 +262,7 @@ public:
         if (this != &other) {
             delete[] str;
             str = new char[strlen(other.str) + 1];
-            strcpy(str, other.str);
+            strcpy_s(str, other.str);
         }
         return *this;
     }
@@ -277,7 +277,7 @@ public:
         in >> temp;
         delete[] s.str;
         s.str = new char[strlen(temp) + 1];
-        strcpy(s.str, temp);
+        strcpy_s(s.str, temp);
         return in;
     }
 };
@@ -297,7 +297,7 @@ private:
         delete[] str;
         if (tilkyTsyfry(s)) {
             str = new char[strlen(s) + 1];
-            strcpy(str, s);
+            strcpy_s(str, s);
         }
         else {
             str = new char[1];
